@@ -1,0 +1,25 @@
+﻿LRU算法，least Recently Used，最近最少使用算法。也就是说默认删除最近最少使用的键。
+# Memory
+used_memory:1523016               Redis使用的内存总量
+used_memory_human:1.45M                         上面参数换算成方便人读的（就是used_memory/1024/1024）
+used_memory_rss:2674688           从操作系统上显示已经分配的内存总量。
+used_memory_peak:9452440          过去Redis内存使用的峰值
+used_memory_peak_human:9.01M               上面参数换算成方便人读的（就是used_memory_peak/1024/1024）
+used_memory_lua:36864
+mem_fragmentation_ratio:1.76      内存碎片率。
+mem_allocator:jemalloc-3.6.0      在编译时指定的Redis使用的内存分配器，可以是libc、jemalloc、tcmalloc。
+
+
+分页处理
+ ZADD key 1 redis
+ ZRANGE key 0 10 WITHSCORES
+ ZREVRANK key member 
+redisTemplate.opsForZSet().add(key, JSON.toJSONString(resp), score);
+插入
+redisTemplate.opsForZSet().add(key, JSON.toJSONString(resp), score);
+查询
+logger.info(key+"数据:"+ redisTemplate.opsForZSet().reverseRangeByScore(key, 0, cacheSize));
+// 删除
+Long removeRangeByScore = redisTemplate.opsForZSet().removeRangeByScore(key, score, score);
+
+
